@@ -25,30 +25,30 @@ const columns: GridColDef[] = [
     field: 'color',
     type: 'string',
     headerName: 'Color',
-    width: 150
+    width: 120
   },
   {
     field: 'price',
     type: 'string',
     headerName: 'Price',
-    width: 200
+    width: 100
   },
   {
     field: 'producer',
     headerName: 'Producer',
     type: 'string',
-    width: 200
+    width: 120
   },
   {
     field: 'createdAt',
     headerName: 'Created At',
-    width: 200,
+    width: 120,
     type: 'string'
   },
   {
     field: 'inStock',
     headerName: 'In Stock',
-    width: 150,
+    width: 100,
     type: 'boolean'
   }
 ];

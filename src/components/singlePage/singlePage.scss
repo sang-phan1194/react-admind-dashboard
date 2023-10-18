@@ -1,0 +1,61 @@
+.singlePage {
+  display: flex;
+
+  .view {
+    flex: 1;
+
+    .info {
+      .topInfo {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        img {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 10px;
+          border: 1px solid rgb(118, 109, 109);
+        }
+
+        h1 {
+          font-weight: 500;
+          font-size: 16px;
+        }
+      }
+
+      .details {
+        font-size: 18px;
+
+        .item {
+          margin: 30px 0px;
+
+          .itemTitle {
+            font-weight: 600;
+            margin-right: 60px;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+
+    hr {
+      width: 90%;
+      height: 0;
+      border: 0.5px solid grey;
+      margin: 20px 0px;
+    }
+
+    .chart {
+      margin-top: 50px;
+      width: 80%;
+      height: 320px;
+    }
+  }
+
+  .activities {
+    flex: 1;
+
+
+  }
+}

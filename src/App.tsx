@@ -7,7 +7,9 @@ import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Menu from './components/menu/Menu';
 import Login from './pages/login/Login';
-import "./styles/global.scss"
+import './styles/global.scss';
+import SingleUser from './pages/singleUser/SingleUser';
+import SingleProduct from './pages/singleProduct/SingleProduct';
 
 function App() {
   const Layout = () => {
@@ -42,6 +44,14 @@ function App() {
         {
           path: '/products',
           element: <Products />
+        },
+        {
+          path: '/users/:id',
+          element: <SingleUser />
+        },
+        {
+          path: '/products/:id',
+          element: <SingleProduct />
         }
       ]
     },
