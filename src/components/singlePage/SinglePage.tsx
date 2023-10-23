@@ -8,6 +8,7 @@ import {
   Tooltip
 } from 'recharts';
 import './singlePage.scss';
+import { useParams } from 'react-router-dom';
 
 type Props = {
   id: number;
@@ -24,6 +25,8 @@ type Props = {
   }[];
 };
 const SinglePage = (props: Props) => {
+  const { id } = useParams();
+  console.log(id);
   return (
     <div className="singlePage">
       <div className="view">

@@ -3,6 +3,7 @@ import AddNewUser from '../../components/addNewUser/AddNewUser';
 import DataTable from '../../components/dataTable/DataTable';
 import './products.scss';
 import { products } from '../../data';
+import { useFirebaseQuery } from '../../queryFromFirebase';
 import { GridColDef } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
@@ -12,56 +13,51 @@ const columns: GridColDef[] = [
     headerName: 'Image',
     width: 100,
     renderCell: (params) => {
-      return <img src={params.row.img || '/noavatar.png'} alt="" />;
+      return <img src={params.row.productPhoto || '/noavatar.png'} alt="" />;
     }
   },
   {
-    field: 'title',
+    field: 'productName',
     type: 'string',
-    headerName: 'Title',
+    headerName: 'Product Name',
     width: 250
   },
   {
-    field: 'color',
+    field: 'productCategory',
     type: 'string',
-    headerName: 'Color',
+    headerName: 'Category',
     width: 120
   },
   {
-    field: 'price',
+    field: 'productPrice',
     type: 'string',
     headerName: 'Price',
     width: 100
   },
   {
-    field: 'producer',
-    headerName: 'Producer',
+    field: 'brandName',
+    headerName: 'Brand',
     type: 'string',
     width: 120
-  },
-  {
-    field: 'createdAt',
-    headerName: 'Created At',
-    width: 120,
-    type: 'string'
-  },
-  {
-    field: 'inStock',
-    headerName: 'In Stock',
-    width: 100,
-    type: 'boolean'
   }
 ];
 
 const Products = () => {
   const [open, setOpen] = useState(false);
+  const { data, isLoading, isError } = useFirebaseQuery('product', 'products');
+  console.log(data);
+
   return (
     <div className="products">
       <div className="info">
         <h1>Products</h1>
         <button onClick={() => setOpen(true)}>Add New Product</button>
       </div>
-      <DataTable slug="products" columns={columns} rows={products} />
+      {isLoading ? (
+        'Loading...'
+      ) : (
+        <DataTable slug="products" columns={columns} rows={data} />
+      )}
       {open && (
         <AddNewUser slug="product" columns={columns} setOpen={setOpen} />
       )}
