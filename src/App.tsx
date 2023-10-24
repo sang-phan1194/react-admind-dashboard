@@ -11,6 +11,7 @@ import './styles/global.scss';
 import SingleUser from './pages/singleUser/SingleUser';
 import SingleProduct from './pages/singleProduct/SingleProduct';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import LocalCalendar from './components/calendar/LocalCalendar';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,10 @@ function App() {
         {
           path: '/',
           element: <Home />
+        },
+        {
+          path: '/calendar',
+          element: <LocalCalendar />
         },
         {
           path: '/users',
