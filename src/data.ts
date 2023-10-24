@@ -20,12 +20,6 @@ export const menu = [
         title: 'Products',
         url: '/products',
         icon: 'product.svg'
-      },
-      {
-        id: 2,
-        title: 'Posts',
-        url: '/',
-        icon: 'post2.svg'
       }
     ]
   },
@@ -34,34 +28,10 @@ export const menu = [
     title: 'general',
     listItems: [
       {
-        id: 1,
-        title: 'Notes',
-        url: '/',
-        icon: 'note.svg'
-      },
-      {
         id: 2,
         title: 'Calendar',
         url: '/calendar',
         icon: 'calendar.svg'
-      }
-    ]
-  },
-  {
-    id: 4,
-    title: 'analytics',
-    listItems: [
-      {
-        id: 1,
-        title: 'Charts',
-        url: '/',
-        icon: 'chart.svg'
-      },
-      {
-        id: 2,
-        title: 'Logs',
-        url: '/',
-        icon: 'log.svg'
       }
     ]
   }
@@ -191,7 +161,7 @@ export const chartBoxConversion = {
 
 export const barChartBoxRevenue = {
   title: 'Profit Earned',
-  color: '#8884d8',
+  color: '#F4CE14',
   dataKey: 'profit',
   chartData: [
     {
@@ -227,7 +197,7 @@ export const barChartBoxRevenue = {
 
 export const barChartBoxVisit = {
   title: 'Total Visit',
-  color: '#FF8042',
+  color: '#3876BF',
   dataKey: 'visit',
   chartData: [
     {
@@ -260,4 +230,3 @@ export const barChartBoxVisit = {
     }
   ]
 };
-

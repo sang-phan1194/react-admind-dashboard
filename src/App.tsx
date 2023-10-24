@@ -1,22 +1,16 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Home from './pages/home/Home';
 import Products from './pages/products/Products';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Menu from './components/menu/Menu';
-import Login from './pages/login/Login';
-import './styles/global.scss';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import LocalCalendar from './components/calendar/LocalCalendar';
+import './styles/global.scss';
 
 const queryClient = new QueryClient();
 
 function App() {
-
   const Layout = () => {
     return (
       <div className="main">
@@ -53,10 +47,6 @@ function App() {
           element: <Products />
         }
       ]
-    },
-    {
-      path: '/login',
-      element: <Login />
     }
   ]);
 

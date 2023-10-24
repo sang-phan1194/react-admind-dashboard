@@ -1,11 +1,11 @@
 import { useSingleQuery } from '../../queryFromFirebase';
 import './myForm.scss';
-import { uploadImage } from '../../uploadFile';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db } from '../../firebase';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 
 const MyForm = (props: any) => {
-  const { setOpen, id } = props;
+  const { setOpen, id, refetch } = props;
   const { data, isLoading } = useSingleQuery(id, 'products', id);
 
   // Add new product
@@ -20,34 +20,54 @@ const MyForm = (props: any) => {
     const photoFile = e.target[5].files[0];
 
     try {
-      const photoUrl = await uploadImage(photoFile);
-      const productDatas = {
-        productName,
-        brandName,
-        productCategory,
-        productDesc,
-        productPrice,
-        productPhoto: photoUrl
-      };
+      const storage = getStorage();
+      const storageRef = ref(storage, `${productName}`);
 
-      const productRef = doc(collection(db, 'products'));
-
-      await setDoc(productRef, productDatas);
-
-      setOpen(false);
+      uploadBytes(storageRef, photoFile).then(async () => {
+        getDownloadURL(storageRef).then(async (photoUrl) => {
+          const productDatas = {
+            productName,
+            brandName,
+            productCategory,
+            productDesc,
+            productPrice,
+            productPhoto: photoUrl
+          };
+          const productRef = doc(collection(db, 'products'));
+          await setDoc(productRef, productDatas);
+          setOpen(false);
+          refetch();
+        });
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleUpdate = (e: any) => {
+  const handleUpdate = async (e: any) => {
     e.preventDefault();
-    console.log(e.target);
+
     const productName = e.target[0].value;
     const brandName = e.target[1].value;
-    const caterogy = e.target[2].value;
-    const description = e.target[3].value;
-    const price = e.target[4].value;
+    const productCategory = e.target[2].value;
+    const productDesc = e.target[3].value;
+    const productPrice = e.target[4].value;
+
+    try {
+      const productRef = doc(db, 'products', id);
+      const productDatas = {
+        productName,
+        brandName,
+        productCategory,
+        productDesc,
+        productPrice
+      };
+      await updateDoc(productRef, productDatas);
+      setOpen(false);
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -76,7 +96,7 @@ const MyForm = (props: any) => {
             </div>
             <div className="item">
               <label htmlFor="">Price</label>
-              <input type="text" required />
+              <input type="number" required />
             </div>
             <div className="item">
               <label htmlFor="">Photo</label>
@@ -104,7 +124,7 @@ const MyForm = (props: any) => {
             </div>
             <div className="item">
               <label htmlFor="">Price</label>
-              <input type="text" defaultValue={data.productPrice || 0} />
+              <input type="number" defaultValue={data.productPrice || 0} />
             </div>
             <div className="item">
               <label htmlFor="">Photo</label>

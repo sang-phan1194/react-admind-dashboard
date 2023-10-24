@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { GridColDef } from '@mui/x-data-grid';
+import { doc, deleteDoc } from 'firebase/firestore';
+
 import DataTable from '../../components/dataTable/DataTable';
-import { useFirebaseQuery } from '../../queryFromFirebase';
-import './products.scss';
 import MyForm from '../../components/myForm/MyForm';
+
+import { useFirebaseQuery } from '../../queryFromFirebase';
+import { db } from '../../firebase';
+import './products.scss';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 120 },
@@ -48,10 +52,14 @@ const columns: GridColDef[] = [
   }
 ];
 
-const Products = (props: any) => {
+const Products = () => {
   const [open, setOpen] = useState(false);
   const [id, setId] = useState('');
-  const { data, isLoading, isError } = useFirebaseQuery('product', 'products');
+  const { data, isLoading, refetch } = useFirebaseQuery('product', 'products');
+
+  const handleDelete = async (id: string) => {
+    await deleteDoc(doc(db, 'products', id));
+  };
 
   const columnActions: GridColDef = {
     field: 'actions',
@@ -71,7 +79,15 @@ const Products = (props: any) => {
           </span>
 
           <div className="delete">
-            <img src="./delete.svg" alt="" />
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(params.row.id);
+                refetch();
+              }}
+            >
+              <img src="./delete.svg" alt="" />
+            </span>
           </div>
         </div>
       );
@@ -100,7 +116,9 @@ const Products = (props: any) => {
           rows={data}
         />
       )}
-      {open && <MyForm open={open} setOpen={setOpen} id={id} />}
+      {open && (
+        <MyForm open={open} setOpen={setOpen} id={id} refetch={refetch} />
+      )}
     </div>
   );
 };
