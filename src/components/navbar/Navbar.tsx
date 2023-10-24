@@ -16,11 +16,8 @@ const Navbar = () => {
           <span>1</span>
         </div>
         <div className="user">
-          <img
-            src="https://cdn-icons-png.flaticon.com/256/616/616554.png"
-            alt=""
-          />
-          <span>Joan</span>
+          <img src="/user.svg" alt="" />
+          <span>Jame</span>
         </div>
         <img src="/settings.svg" alt="" className="icon" />
       </div>

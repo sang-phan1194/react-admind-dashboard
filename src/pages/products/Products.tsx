@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import AddNewUser from '../../components/addNewUser/AddNewUser';
-import DataTable from '../../components/dataTable/DataTable';
-import './products.scss';
-import { products } from '../../data';
-import { useFirebaseQuery } from '../../queryFromFirebase';
 import { GridColDef } from '@mui/x-data-grid';
+import DataTable from '../../components/dataTable/DataTable';
+import { useFirebaseQuery } from '../../queryFromFirebase';
+import './products.scss';
+import MyForm from '../../components/myForm/MyForm';
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'id', headerName: 'ID', width: 120 },
   {
     field: 'img',
     headerName: 'Image',
@@ -20,7 +19,7 @@ const columns: GridColDef[] = [
     field: 'productName',
     type: 'string',
     headerName: 'Product Name',
-    width: 250
+    width: 300
   },
   {
     field: 'productCategory',
@@ -32,35 +31,76 @@ const columns: GridColDef[] = [
     field: 'productPrice',
     type: 'string',
     headerName: 'Price',
-    width: 100
+    width: 140,
+    renderCell: (params) => {
+      return (
+        <span>{`${new Intl.NumberFormat().format(
+          params.row.productPrice
+        )} VND`}</span>
+      );
+    }
   },
   {
     field: 'brandName',
     headerName: 'Brand',
     type: 'string',
-    width: 120
+    width: 170
   }
 ];
 
-const Products = () => {
+const Products = (props: any) => {
   const [open, setOpen] = useState(false);
+  const [id, setId] = useState('');
   const { data, isLoading, isError } = useFirebaseQuery('product', 'products');
-  console.log(data);
+
+  const columnActions: GridColDef = {
+    field: 'actions',
+    headerName: 'Actions',
+    width: 120,
+    renderCell: (params) => {
+      return (
+        <div className="actions">
+          <span
+            onClick={(e) => {
+              e.stopPropagation();
+              setId(params.row.id);
+              setOpen(true);
+            }}
+          >
+            <img src="./view.svg" alt="" />
+          </span>
+
+          <div className="delete">
+            <img src="./delete.svg" alt="" />
+          </div>
+        </div>
+      );
+    }
+  };
 
   return (
     <div className="products">
       <div className="info">
         <h1>Products</h1>
-        <button onClick={() => setOpen(true)}>Add New Product</button>
+        <button
+          onClick={() => {
+            setOpen(true);
+            setId('');
+          }}
+        >
+          Add New Product
+        </button>
       </div>
       {isLoading ? (
         'Loading...'
       ) : (
-        <DataTable slug="products" columns={columns} rows={data} />
+        <DataTable
+          slug="products"
+          columns={[...columns, columnActions]}
+          rows={data}
+        />
       )}
-      {open && (
-        <AddNewUser slug="product" columns={columns} setOpen={setOpen} />
-      )}
+      {open && <MyForm open={open} setOpen={setOpen} id={id} />}
     </div>
   );
 };

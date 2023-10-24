@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from './firebase.ts'; // Import your Firebase config
 
 export const useFirebaseQuery = (
@@ -12,6 +12,26 @@ export const useFirebaseQuery = (
       id: doc.id,
       ...doc.data()
     }));
+    return data;
+  });
+};
+
+export const useSingleQuery = (
+  queryKey: string,
+  firestoreCollection: string,
+  id: string
+) => {
+  return useQuery(queryKey, async () => {
+    const docRef = doc(db, firestoreCollection, id);
+    const docSnap = await getDoc(docRef);
+    let data: any = {};
+    if (docSnap.exists()) {
+      data = { ...docSnap.data() };
+      console.log(data);
+    } else {
+      console.log('No such product!');
+    }
+
     return data;
   });
 };
