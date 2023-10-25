@@ -1,7 +1,7 @@
 **Project info: <br/>
 #Admin Dashboard For Manage Products in Commercial Website <br/>
 
-#Demolink: https://admin-dashboard-react94.netlify.app/products <br/>
+#Demolink: https://admin-dashboard-react94.netlify.app/ <br/>
 
 #Main feature: <br/>
 Manage perfume products with CRUD API of Firebase. <br/>
