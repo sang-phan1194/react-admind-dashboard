@@ -59,6 +59,7 @@ const Products = () => {
 
   const handleDelete = async (id: string) => {
     await deleteDoc(doc(db, 'products', id));
+    refetch();
   };
 
   const columnActions: GridColDef = {
@@ -83,7 +84,6 @@ const Products = () => {
               onClick={(e) => {
                 e.stopPropagation();
                 handleDelete(params.row.id);
-                refetch();
               }}
             >
               <img src="./delete.svg" alt="" />
