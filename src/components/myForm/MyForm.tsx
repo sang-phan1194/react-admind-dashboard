@@ -1,8 +1,8 @@
-import { useSingleQuery } from '../../queryFromFirebase';
-import './myForm.scss';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db } from '../../firebase';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useSingleQuery } from '../../queryFromFirebase';
+import { db } from '../../firebase';
+import './myForm.scss';
 
 const MyForm = (props: any) => {
   const { setOpen, id, refetch } = props;
