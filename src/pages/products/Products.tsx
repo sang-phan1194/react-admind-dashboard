@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { GridColDef } from '@mui/x-data-grid';
-import { doc, deleteDoc } from 'firebase/firestore';
-
 import DataTable from '../../components/dataTable/DataTable';
 import MyForm from '../../components/myForm/MyForm';
-
 import { useFirebaseQuery } from '../../queryFromFirebase';
-import { db } from '../../firebase';
+import AlertDialog from '../../components/alertDialog/AlertDialog';
 import './products.scss';
 
 const columns: GridColDef[] = [
@@ -54,12 +51,13 @@ const columns: GridColDef[] = [
 
 const Products = () => {
   const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const [id, setId] = useState('');
   const { data, isLoading, refetch } = useFirebaseQuery('product', 'products');
 
-  const handleDelete = async (id: string) => {
-    await deleteDoc(doc(db, 'products', id));
-    refetch();
+  const handleDelete = (id: string) => {
+    setId(id);
+    setOpenDialog(true);
   };
 
   const columnActions: GridColDef = {
@@ -118,6 +116,15 @@ const Products = () => {
       )}
       {open && (
         <MyForm open={open} setOpen={setOpen} id={id} refetch={refetch} />
+      )}
+      {openDialog && (
+        <AlertDialog
+          open={openDialog}
+          setOpen={setOpenDialog}
+          id={id}
+          refetch={refetch}
+          type="products"
+        />
       )}
     </div>
   );

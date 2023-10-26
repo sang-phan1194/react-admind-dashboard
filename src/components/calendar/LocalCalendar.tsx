@@ -109,6 +109,7 @@ const LocalCalendar = () => {
           setOpen={setOpenDialog}
           id={id}
           refetch={refetch}
+          type="calendarEvents"
         />
       )}
       {!isLoading ? (
