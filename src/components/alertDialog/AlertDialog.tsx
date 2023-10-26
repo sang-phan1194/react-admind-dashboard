@@ -44,7 +44,9 @@ export default function AlertDialog(props: Props) {
       >
         <DialogTitle id="alert-dialog-title">{'Alert'}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description"></DialogContentText>
+          <DialogContentText id="alert-dialog-description">
+            Choose the options below:
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => handleConfirm(id)}>Delete</Button>

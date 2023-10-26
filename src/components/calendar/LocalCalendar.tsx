@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './myCalendar.scss';
 import AlertDialog from '../alertDialog/AlertDialog';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useFirebaseQuery } from '../../queryFromFirebase';
 import { useState } from 'react';
@@ -16,6 +16,14 @@ type Event = {
   color: string;
   title: string;
 };
+type RetrievedEvent = {
+  start: Timestamp;
+  end: Timestamp;
+  color: string;
+  title: string;
+  id: string;
+};
+type ExtendEvent = Event & { id: string };
 type DateRange = {
   start: Date;
   end: Date;
@@ -29,8 +37,7 @@ const LocalCalendar = () => {
   const [open, setOpenDialog] = useState(false);
   const [id, setId] = useState('');
 
-  const handleEventClick = (event: any) => {
-    console.log(event);
+  const handleEventClick = (event: ExtendEvent) => {
     setOpenDialog(true);
     setId(event.id);
   };
@@ -56,19 +63,18 @@ const LocalCalendar = () => {
     var style = {
       backgroundColor: backgroundColor,
       borderRadius: '5px',
-      opacity: 0.7,
-      color: 'black',
+      color: '#FCF5ED',
       fontSize: '15px',
       padding: '10px',
-      border: '0.5px solid white'
+      border: '0.8px solid #008080'
     };
     return {
       style: style
     };
   };
 
-  const convertData = (datas: any) => {
-    const eventsForCalendar = datas.map((event: any) => ({
+  const convertData = (datas: RetrievedEvent[]) => {
+    const eventsForCalendar = datas.map((event: RetrievedEvent) => ({
       title: event.title,
       start: event.start.toDate(),
       end: event.end.toDate(),
@@ -84,7 +90,6 @@ const LocalCalendar = () => {
 
     if (title) {
       const newEvent = { start, end, title, color: generateRandomColor() };
-      console.log(newEvent);
 
       try {
         const eventRef = doc(collection(db, 'calendarEvents'));
@@ -98,7 +103,14 @@ const LocalCalendar = () => {
 
   return (
     <div className="myCalendar">
-      {open && <AlertDialog open={open} setOpen={setOpenDialog} id={id} refetch={refetch} />}
+      {open && (
+        <AlertDialog
+          open={open}
+          setOpen={setOpenDialog}
+          id={id}
+          refetch={refetch}
+        />
+      )}
       {!isLoading ? (
         <Calendar
           defaultView="week"

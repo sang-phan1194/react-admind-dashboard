@@ -6,7 +6,7 @@
 #Main feature: <br/>
 Manage perfume products with CRUD API of Firebase. <br/>
 Visualize data with various type of charts. <br/>
-Manages personal events with calendar. <br/>
+Manage personal events with calendar. <br/>
 
 ***Kindly note when testing the CRUD features, please add new product and perform (delete/edit) on it. <br/>
 
