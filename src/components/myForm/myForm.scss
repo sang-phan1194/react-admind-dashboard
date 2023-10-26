@@ -64,6 +64,29 @@
         img {
           width: 200px;
         }
+
+        .required {
+          color: #CE5A67;
+        }
+      }
+
+      .item-file {
+        label {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          gap: 20px;
+          width: 70%;
+          cursor: pointer;
+
+          input[type=file] {
+            display: none;
+          }
+
+          img {
+            width: 50px;
+          }
+        }
       }
 
       button {

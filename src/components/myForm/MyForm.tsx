@@ -3,10 +3,17 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useSingleQuery } from '../../queryFromFirebase';
 import { db } from '../../firebase';
 import './myForm.scss';
+import { useState } from 'react';
 
 const MyForm = (props: any) => {
   const { setOpen, id, refetch } = props;
   const { data, isLoading } = useSingleQuery(id, 'products', id);
+  const [attachedFile, setAttachedFile] = useState('');
+  const handleFileChange = (e: any) => {
+    if (e) {
+      setAttachedFile(e?.target.files[0].name);
+    }
+  };
 
   // Add new product
   const handleAddNew = async (e: any) => {
@@ -79,15 +86,21 @@ const MyForm = (props: any) => {
         {id === '' ? (
           <form onSubmit={handleAddNew}>
             <div className="item">
-              <label htmlFor="">Product Name</label>
+              <label htmlFor="">
+                Product Name<span className="required">*</span>
+              </label>
               <input type="text" required />
             </div>
             <div className="item">
-              <label htmlFor="">Brand Name</label>
+              <label htmlFor="">
+                Brand Name<span className="required">*</span>
+              </label>
               <input type="text" required />
             </div>
             <div className="item">
-              <label htmlFor="">Category</label>
+              <label htmlFor="">
+                Category<span className="required">*</span>
+              </label>
               <input type="text" required />
             </div>
             <div className="item">
@@ -95,27 +108,47 @@ const MyForm = (props: any) => {
               <textarea rows={5} />
             </div>
             <div className="item">
-              <label htmlFor="">Price</label>
+              <label htmlFor="">
+                Price<span className="required">*</span>
+              </label>
               <input type="number" required />
             </div>
-            <div className="item">
-              <label htmlFor="">Photo</label>
-              <input type="file" required />
+            <div className="item item-file">
+              <span>
+                Photo<span className="required">*</span>
+              </span>
+              <label htmlFor="file">
+                <img src="/img.svg" alt="" />
+                {attachedFile || 'Please choose an image'}
+                <input
+                  onChange={handleFileChange}
+                  id="file"
+                  type="file"
+                  accept="image/*"
+                  required
+                />
+              </label>
             </div>
             <button type="submit">Save</button>
           </form>
         ) : !isLoading ? (
           <form onSubmit={handleUpdate}>
             <div className="item">
-              <label htmlFor="">Product Name</label>
+              <label htmlFor="">
+                Product Name<span className="required">*</span>
+              </label>
               <input type="text" defaultValue={data.productName || ''} />
             </div>
             <div className="item">
-              <label htmlFor="">Brand Name</label>
+              <label htmlFor="">
+                Brand Name<span className="required">*</span>
+              </label>
               <input type="text" defaultValue={data.brandName || ''} />
             </div>
             <div className="item">
-              <label htmlFor="">Category</label>
+              <label htmlFor="">
+                Category<span className="required">*</span>
+              </label>
               <input type="text" defaultValue={data.productCategory || ''} />
             </div>
             <div className="item">
@@ -123,7 +156,9 @@ const MyForm = (props: any) => {
               <textarea rows={5} defaultValue={data.productDesc || ''} />
             </div>
             <div className="item">
-              <label htmlFor="">Price</label>
+              <label htmlFor="">
+                Price<span className="required">*</span>
+              </label>
               <input type="number" defaultValue={data.productPrice || 0} />
             </div>
             <div className="item">
