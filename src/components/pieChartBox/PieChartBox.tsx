@@ -11,7 +11,7 @@ const data = [
 const PieChartBox = () => {
   return (
     <div className="pieChartBox">
-      <h1>By Caterogy</h1>
+      <h1>By Category</h1>
       <div className="chart">
         <ResponsiveContainer width="99%" height={300}>
           <PieChart>

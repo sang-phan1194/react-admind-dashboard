@@ -13,14 +13,20 @@ export const menu = [
   },
   {
     id: 2,
-    title: 'lists',
+    title: 'Management',
     listItems: [
       {
         id: 1,
         title: 'Products',
         url: '/products',
         icon: 'product.svg'
-      }
+      },
+      {
+        id: 2,
+        title: 'Social Posts',
+        url: '/social-posts',
+        icon: 'post.svg'
+      },
     ]
   },
   {

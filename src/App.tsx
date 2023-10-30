@@ -7,6 +7,7 @@ import Footer from './components/footer/Footer';
 import Menu from './components/menu/Menu';
 import LocalCalendar from './components/calendar/LocalCalendar';
 import './styles/global.scss';
+import SocialPost from './pages/socialPost/SocialPost';
 
 const queryClient = new QueryClient();
 
@@ -45,7 +46,11 @@ function App() {
         {
           path: '/products',
           element: <Products />
-        }
+        },
+        {
+          path: '/social-posts',
+          element: <SocialPost />
+        },
       ]
     }
   ]);
