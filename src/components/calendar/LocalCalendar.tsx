@@ -50,10 +50,15 @@ const LocalCalendar = () => {
       '#00A9FF',
       '#A7D397',
       '#176B87',
-      '#005B41'
+      '#005B41',
+      '#F875AA',
+      '#7752FE',
+      '#ED7D31',
+      '#E95793'
     ];
     const index = Math.floor(Math.random() * colors.length);
     const color = colors[index];
+    console.log(index, ':', color);
 
     return color;
   };
