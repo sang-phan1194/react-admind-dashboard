@@ -67,7 +67,7 @@ export default function AlertDialog(props: Props) {
           >
             Delete
           </Button>
-          <Button variant="contained" onClick={handleClose} autoFocus>
+          <Button variant="contained" onClick={handleClose}>
             Cancel
           </Button>
         </DialogActions>

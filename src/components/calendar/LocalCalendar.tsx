@@ -58,7 +58,6 @@ const LocalCalendar = () => {
     ];
     const index = Math.floor(Math.random() * colors.length);
     const color = colors[index];
-    console.log(index, ':', color);
 
     return color;
   };
