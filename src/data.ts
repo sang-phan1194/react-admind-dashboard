@@ -20,13 +20,7 @@ export const menu = [
         title: 'Products',
         url: '/products',
         icon: 'product.svg'
-      },
-      {
-        id: 2,
-        title: 'Posts',
-        url: '/posts',
-        icon: 'post.svg'
-      },
+      }
     ]
   },
   {
