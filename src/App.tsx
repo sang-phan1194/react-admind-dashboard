@@ -48,7 +48,7 @@ function App() {
           element: <Products />
         },
         {
-          path: '/social-posts',
+          path: '/posts',
           element: <SocialPost />
         },
       ]

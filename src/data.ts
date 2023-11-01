@@ -23,8 +23,8 @@ export const menu = [
       },
       {
         id: 2,
-        title: 'Social Posts',
-        url: '/social-posts',
+        title: 'Posts',
+        url: '/posts',
         icon: 'post.svg'
       },
     ]
